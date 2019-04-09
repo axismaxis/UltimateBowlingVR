@@ -4,16 +4,17 @@ using UnityEngine;
 
 public class ResetLane : MonoBehaviour
 {
-    public GameObject Pins;
     private CheckPins PinController;
 
     private bool timeron = false;
     public float time;
+    private float resettime;
 
     // Start is called before the first frame update
     void Start()
     {
-        PinController = Pins.GetComponent<CheckPins>();
+        PinController = GetComponentInChildren<CheckPins>();
+        resettime = time;
     }
 
     // Update is called once per frame
@@ -26,14 +27,15 @@ public class ResetLane : MonoBehaviour
             if (time <= 0.0f)
             {
                 timerEnded();
+                time = resettime;
             }
         }
     }
 
     void timerEnded()
     {
-        Debug.Log(PinController.CheckIfKnockedDown());
-        //TODO reset
+        timeron = false;
+        PinController.BallEnded();
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -41,6 +43,7 @@ public class ResetLane : MonoBehaviour
         if (collision.transform.tag.Equals("Ball"))
         {
             timeron = true;
+            PinController.DestroyBall();
         }
     }
 }
