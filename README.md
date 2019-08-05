@@ -1,2 +1,2 @@
 # UltimateBowlingVR
-Max doet niks
+A simple VR bowling game i made for the HTC Vive with working scoring system.
